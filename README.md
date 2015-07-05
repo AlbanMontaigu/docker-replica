@@ -1,4 +1,4 @@
-vagrant-boot2docker
-===================
+docker-replica-slave
+====================
 
-A vagrant layout to work with boot2docker
+An image to run a sshd server for replication with ssh
