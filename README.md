@@ -1,4 +1,4 @@
-docker-replica-slave
+docker-replica
 ====================
 
-An image to run a sshd server for replication with ssh
+Replication solution with simple unison / ssh couple.
