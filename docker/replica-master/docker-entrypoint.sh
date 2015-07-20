@@ -10,7 +10,7 @@ while true; do
 	echo "[$(date)] Syncing start"
 
 	# Now running sync !
-	sshpass -p $REPLICA_SLAVE_PWD unison -batch -confirmbigdel=false $REPLICA_DATA_DIR ssh://replica-slave@$REPLICA_SLAVE_HOST/$REPLICA_DATA_DIR -sshargs '-port ${REPLICA_SLAVE_PORT}' &
+	sshpass -p $REPLICA_SLAVE_PWD unison -batch -confirmbigdel=false $REPLICA_DATA_DIR ssh://replica-slave@$REPLICA_SLAVE_HOST/$REPLICA_DATA_DIR -sshargs '-p ${REPLICA_SLAVE_PORT}' &
 	PID=$!
 	wait $PID
 
