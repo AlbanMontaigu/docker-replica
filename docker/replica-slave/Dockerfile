@@ -2,7 +2,7 @@
 FROM debian:wheezy
 
 # Set the env variable DEBIAN_FRONTEND to noninteractive
-ENV DEBIAN_FRONTEND="noninteractive" REPLICA_DATA_DIR="/var/local/replica-data"
+ENV DEBIAN_FRONTEND="noninteractive" REPLICA_DATA_DIR="/var/replica"
 
 # Add specific user for replication
 RUN groupadd replica && useradd -m -g replica -G users replica-slave

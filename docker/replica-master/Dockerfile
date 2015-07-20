@@ -2,7 +2,7 @@
 FROM debian:wheezy
 
 # Set the env variable DEBIAN_FRONTEND to noninteractive
-ENV DEBIAN_FRONTEND="noninteractive" REPLICA_DATA_DIR="/var/local/replica-data" REPLICA_SLAVE_HOST="replica-slave" REPLICA_SLAVE_PWD="ezr5kKj@2" REPLICA_INTERVAL="10"
+ENV DEBIAN_FRONTEND="noninteractive" REPLICA_DATA_DIR="/var/replica" REPLICA_SLAVE_HOST="replica-slave" REPLICA_SLAVE_PWD="ezr5kKj@2" REPLICA_INTERVAL="10"
 
 # Add specific user for replication
 RUN groupadd replica && useradd -m -g replica -G users replica-master
