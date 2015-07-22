@@ -14,7 +14,7 @@ RUN apt-get update \
     && apt-get install -y ssh sshpass unison \
     && apt-get autoremove -y \
     && apt-get autoclean \
-    && echo 'replica-master:qsdqsdseFFfj@33' | chpasswd \
+    && echo 'root:qsdqsdseFFfj@33' | chpasswd \
     && mkdir -p $REPLICA_DATA_DIR \
     && chmod 777 $REPLICA_DATA_DIR
 
