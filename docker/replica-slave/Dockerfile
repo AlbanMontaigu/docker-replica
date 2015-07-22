@@ -5,19 +5,15 @@ FROM debian:wheezy
 ENV DEBIAN_FRONTEND="noninteractive" \
     REPLICA_DATA_DIR="/var/replica"
 
-# Add specific user for replication
-RUN groupadd replica \
-    && useradd -m -g replica -G users replica-slave
-
 # System base installation
 RUN apt-get update \
     && apt-get install -y openssh-server unison \
     && apt-get autoremove -y \
     && apt-get autoclean \
     && mkdir /var/run/sshd \
-    && sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin no\n AllowUsers replica-slave\n/' /etc/ssh/sshd_config \
+    && sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config \
-    && echo 'replica-slave:ezr5kKj@2' | chpasswd \
+    && echo 'root:ezr5kKj@2' | chpasswd \
     && mkdir -p $REPLICA_DATA_DIR \
     && chmod 777 $REPLICA_DATA_DIR
 

@@ -9,10 +9,6 @@ ENV DEBIAN_FRONTEND="noninteractive" \
     REPLICA_SLAVE_PWD="ezr5kKj@2" \
     REPLICA_INTERVAL="10"
 
-# Add specific user for replication
-RUN groupadd replica \
-    && useradd -m -g replica -G users replica-master
-
 # System base installation
 RUN apt-get update \
     && apt-get install -y ssh sshpass unison \
@@ -29,9 +25,6 @@ WORKDIR $REPLICA_DATA_DIR
 # Build entrypoint to enable custom script
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
-
-# Final user is
-USER replica-master
 
 # Custom ssh for user
 RUN mkdir -p ~/.ssh \
