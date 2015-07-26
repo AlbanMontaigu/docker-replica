@@ -18,7 +18,7 @@ else
 
     # Generates file
     echo "Creating ${UNISON_PRF_FILE}..."
-    echo -e "
+    echo "
 # Batch mode
 batch = true
 auto = true
