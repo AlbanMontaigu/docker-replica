@@ -2,17 +2,17 @@
 set -e
 
 # Configuration is in docker file
-UNISON_PRF_PATH="${UNISON_DIR}/${UNISON_PRF_FILE}"
+UNISON_PRF_FILE="${UNISON_DIR}/${UNISON_PRF}.prf"
 
 #
 # Generate unison configuration if necessary
 #
 # /!\ Be carefull, if you change any config value, this file must be deleted or replaced /!\
 #
-echo "Checking if ${UNISON_PRF_PATH} is created..."
-if [ -e "${UNISON_PRF_PATH}" ]; then
+echo "Checking if ${UNISON_PRF_FILE} is created..."
+if [ -e "${UNISON_PRF_FILE}" ]; then
 
-    echo "Creating ${UNISON_PRF_PATH}..."
+    echo "Creating ${UNISON_PRF_FILE}..."
 
 # Generates file
     echo -e "
@@ -58,14 +58,14 @@ retry = 10
 # Want to sync when a file change (normally with python-pyinotify)
 repeat = watch
 
-" > $UNISON_PRF_PATH
+" > $UNISON_PRF_FILE
 
 else
-    echo "${UNISON_PRF_PATH} already created !"
+    echo "${UNISON_PRF_FILE} already created !"
 fi
 
 #
 # Now starting sync in endless mode thanks to repeat = watch
 #
-echo "Executing unison with ${UNISON_PRF_FILE} profile..."
-exec sshpass -p $REPLICA_SLAVE_PWD unison "${UNISON_PRF_FILE}"
+echo "Executing unison with ${UNISON_PRF} profile..."
+exec sshpass -p $REPLICA_SLAVE_PWD unison "${UNISON_PRF}"

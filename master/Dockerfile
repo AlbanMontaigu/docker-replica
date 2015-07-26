@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND="noninteractive" \
     REPLICA_SLAVE_PORT="22" \
     REPLICA_SLAVE_PWD="ezr5kKj@2" \
     UNISON_DIR="/root/.unison" \
-    UNISON_PRF_FILE="default.prf"
+    UNISON_PRF="replica-master"
 
 # System base installation
 RUN apt-get update \
