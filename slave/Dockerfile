@@ -4,11 +4,12 @@ FROM debian:wheezy
 # Set environment variables
 ENV DEBIAN_FRONTEND="noninteractive" \
     REPLICA_DATA_DIR="/var/replica" \
-    UNISON_DIR="/root/.unison"
+    UNISON_DIR="/root/.unison" \
+    UNISON_VERSION="2.48.3"
 
 # System base installation
 RUN apt-get update \
-    && apt-get install -y openssh-server unison \
+    && apt-get install -y openssh-server ssh sshpass python-pyinotify ocaml build-essential exuberant-ctags curl \
     && apt-get autoremove -y \
     && apt-get autoclean \
     && mkdir /var/run/sshd \
@@ -17,6 +18,19 @@ RUN apt-get update \
     && echo 'root:ezr5kKj@2' | chpasswd \
     && mkdir -p --mode=777 $REPLICA_DATA_DIR \
     && mkdir -p --mode=777 $UNISON_DIR
+
+# Building unison since wheezy has no recent version...
+RUN cd /tmp \
+    && curl -o unison.tgz -SL http://www.cis.upenn.edu/~bcpierce/unison/download/releases/stable/unison-$UNISON_VERSION.tar.gz \
+    && mkdir -p --mode=777 unison \
+    && tar -zxf unison.tgz --strip-components=1 -C unison \
+    && cd unison \
+    && make install UISTYLE=text NATIVE=true INSTALLDIR=/bin \
+    && cd \
+    && apt-get purge -y ocaml build-essential exuberant-ctags curl \
+    && apt-get autoremove -y \
+    && apt-get autoclean \
+    && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
 
 # Where unison store some internal data like status
 VOLUME $UNISON_DIR
