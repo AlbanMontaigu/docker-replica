@@ -10,7 +10,7 @@ UNISON_PRF_FILE="${UNISON_DIR}/${UNISON_PRF}.prf"
 # /!\ Be carefull, if you change any config value, this file must be deleted or replaced /!\
 #
 echo "Checking if ${UNISON_PRF_FILE} is created..."
-if [ -e "${UNISON_PRF_FILE}" ]; then
+if [ -f "${UNISON_PRF_FILE}" ]; then
 
     echo "Creating ${UNISON_PRF_FILE}..."
 
