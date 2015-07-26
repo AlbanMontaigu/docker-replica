@@ -16,8 +16,8 @@ RUN apt-get update \
     && apt-get autoremove -y \
     && apt-get autoclean \
     && echo 'root:qsdqsdseFFfj@33' | chpasswd \
-    && mkdir -p $REPLICA_DATA_DIR \
-    && chmod 777 $REPLICA_DATA_DIR
+    && mkdir -p --mode=777 $REPLICA_DATA_DIR \
+    && mkdir -p --mode=777 $UNISON_DIR
 
 # Where unison store some internal data like status
 VOLUME $UNISON_DIR

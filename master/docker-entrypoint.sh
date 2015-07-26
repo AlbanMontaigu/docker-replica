@@ -4,13 +4,6 @@
 UNISON_PRF_PATH="${UNISON_DIR}/${UNISON_PRF_FILE}"
 
 #
-# Generate unison dir if necessary 
-#
-if [ -d "${UNISON_DIR}" ]; then
-    mkdir -p --mode=777 "${UNISON_DIR}"
-fi
-
-#
 # Generate unison configuration if necessary
 #
 # /!\ Be carefull, if you change any config value, this file must be deleted or replaced /!\

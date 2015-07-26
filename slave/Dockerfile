@@ -15,8 +15,8 @@ RUN apt-get update \
     && sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config \
     && echo 'root:ezr5kKj@2' | chpasswd \
-    && mkdir -p $REPLICA_DATA_DIR \
-    && chmod 777 $REPLICA_DATA_DIR
+    && mkdir -p --mode=777 $REPLICA_DATA_DIR \
+    && mkdir -p --mode=777 $UNISON_DIR
 
 # Where unison store some internal data like status
 VOLUME $UNISON_DIR
