@@ -12,9 +12,12 @@ UNISON_PRF_FILE="${UNISON_DIR}/${UNISON_PRF}.prf"
 echo "Checking if ${UNISON_PRF_FILE} is created..."
 if [ -f "${UNISON_PRF_FILE}" ]; then
 
-    echo "Creating ${UNISON_PRF_FILE}..."
+    # Nothing to do at all
+    echo "${UNISON_PRF_FILE} already created !"
+else
 
-# Generates file
+    # Generates file
+    echo "Creating ${UNISON_PRF_FILE}..."
     echo -e "
 # Batch mode
 batch = true
@@ -59,9 +62,6 @@ retry = 10
 repeat = watch
 
 " > $UNISON_PRF_FILE
-
-else
-    echo "${UNISON_PRF_FILE} already created !"
 fi
 
 #
