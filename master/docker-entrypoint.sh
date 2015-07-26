@@ -7,7 +7,7 @@ UNISON_PRF_PATH="${UNISON_DIR}/${UNISON_PRF_FILE}"
 # Generate unison dir if necessary 
 #
 if [ -d "${UNISON_DIR}" ]; then
-    sudo mkdir -p --mode=777 "${UNISON_DIR}"
+    mkdir -p --mode=777 "${UNISON_DIR}"
 fi
 
 #
