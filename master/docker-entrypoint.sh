@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 # Configuration is in docker file
 UNISON_PRF_PATH="${UNISON_DIR}/${UNISON_PRF_FILE}"
@@ -8,9 +9,13 @@ UNISON_PRF_PATH="${UNISON_DIR}/${UNISON_PRF_FILE}"
 #
 # /!\ Be carefull, if you change any config value, this file must be deleted or replaced /!\
 #
+echo "Checking if ${UNISON_PRF_PATH} is created..."
 if [ -e "${UNISON_PRF_PATH}" ]; then
 
-echo -e "
+    echo "Creating ${UNISON_PRF_PATH}..."
+
+# Generates file
+    echo -e "
 # Batch mode
 batch = true
 auto = true
@@ -55,9 +60,12 @@ repeat = watch
 
 " > $UNISON_PRF_PATH
 
+else
+    echo "${UNISON_PRF_PATH} already created !"
 fi
 
 #
 # Now starting sync in endless mode thanks to repeat = watch
 #
-exec sshpass -p $REPLICA_SLAVE_PWD unison "${UNISON_PRF}"
+echo "Executing unison with ${UNISON_PRF_FILE} profile..."
+exec sshpass -p $REPLICA_SLAVE_PWD unison "${UNISON_PRF_FILE}"
