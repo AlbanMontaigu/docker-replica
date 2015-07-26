@@ -3,7 +3,8 @@ FROM debian:wheezy
 
 # Set environment variables
 ENV DEBIAN_FRONTEND="noninteractive" \
-    REPLICA_DATA_DIR="/var/replica"
+    REPLICA_DATA_DIR="/var/replica" \
+    UNISON_DIR="/root/.unison"
 
 # System base installation
 RUN apt-get update \
@@ -16,6 +17,9 @@ RUN apt-get update \
     && echo 'root:ezr5kKj@2' | chpasswd \
     && mkdir -p $REPLICA_DATA_DIR \
     && chmod 777 $REPLICA_DATA_DIR
+
+# Where unison store some internal data like status
+VOLUME $UNISON_DIR
 
 # Where replicate data is stored
 VOLUME $REPLICA_DATA_DIR

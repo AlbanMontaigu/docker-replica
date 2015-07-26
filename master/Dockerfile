@@ -7,16 +7,20 @@ ENV DEBIAN_FRONTEND="noninteractive" \
     REPLICA_SLAVE_HOST="replica-slave" \
     REPLICA_SLAVE_PORT="22" \
     REPLICA_SLAVE_PWD="ezr5kKj@2" \
-    REPLICA_INTERVAL="10"
+    UNISON_DIR="/root/.unison" \
+    UNISON_PRF_FILE="default.prf"
 
 # System base installation
 RUN apt-get update \
-    && apt-get install -y ssh sshpass unison \
+    && apt-get install -y ssh sshpass python-pyinotify unison  \
     && apt-get autoremove -y \
     && apt-get autoclean \
     && echo 'root:qsdqsdseFFfj@33' | chpasswd \
     && mkdir -p $REPLICA_DATA_DIR \
     && chmod 777 $REPLICA_DATA_DIR
+
+# Where unison store some internal data like status
+VOLUME $UNISON_DIR
 
 # Where replicate data is stored
 VOLUME $REPLICA_DATA_DIR
