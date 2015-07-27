@@ -1,5 +1,4 @@
 #!/bin/sh
-set -e
 
 # Want to exit cleanly with subprocess
 trap 'kill -TERM $PID; wait $PID; exit 0' TERM INT
