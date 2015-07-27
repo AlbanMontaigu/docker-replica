@@ -24,7 +24,9 @@ RUN cd /tmp \
     && mkdir -p --mode=777 unison \
     && tar -zxf unison.tgz --strip-components=1 -C unison \
     && cd unison \
-    && make install UISTYLE=text NATIVE=true INSTALLDIR=/bin \
+    && make UISTYLE=text NATIVE=true \
+    && cp -f unison /bin \
+    && cp -f fsmonitor.py /bin \
     && cd \
     && apt-get purge -y ocaml build-essential exuberant-ctags curl \
     && apt-get autoremove -y \
