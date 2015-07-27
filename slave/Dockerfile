@@ -5,6 +5,7 @@ FROM debian:wheezy
 ENV DEBIAN_FRONTEND="noninteractive" \
     REPLICA_DATA_DIR="/var/replica" \
     UNISON_DIR="/root/.unison" \
+    UNISONLOCALHOSTNAME="replica-slave" \
     UNISON_VERSION="2.48.3"
 
 # System base installation

@@ -9,6 +9,7 @@ ENV DEBIAN_FRONTEND="noninteractive" \
     REPLICA_SLAVE_PWD="ezr5kKj@2" \
     UNISON_DIR="/root/.unison" \
     UNISON_PRF="replica-master" \
+    UNISONLOCALHOSTNAME="replica-master" \
     UNISON_VERSION="2.48.3"
 
 # System base installation
