@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+# Want to exit cleanly with subprocess
+trap 'kill -TERM $PID; wait $PID; exit 0' TERM INT
+
 # Configuration is in docker file
 UNISON_PRF_FILE="${UNISON_DIR}/${UNISON_PRF}.prf"
 
@@ -9,15 +12,15 @@ UNISON_PRF_FILE="${UNISON_DIR}/${UNISON_PRF}.prf"
 #
 # /!\ Be carefull, if you change any config value, this file must be deleted or replaced /!\
 #
-echo "Checking if ${UNISON_PRF_FILE} is created..."
+echo "[$(date)] Checking if ${UNISON_PRF_FILE} is created..."
 if [ -f "${UNISON_PRF_FILE}" ]; then
 
     # Nothing to do at all
-    echo "${UNISON_PRF_FILE} already created !"
+    echo "[$(date)] ${UNISON_PRF_FILE} already created !"
 else
 
     # Generates file
-    echo "Creating ${UNISON_PRF_FILE}..."
+    echo "[$(date)] Creating ${UNISON_PRF_FILE}..."
     echo "
 # Batch mode
 batch = true
@@ -65,7 +68,20 @@ repeat = watch
 fi
 
 #
-# Now starting sync in endless mode thanks to repeat = watch
+# Want to have sync for ever even if connection issue
 #
-echo "Executing unison with ${UNISON_PRF} profile..."
-exec sshpass -p $REPLICA_SLAVE_PWD unison "${UNISON_PRF}"
+while true; do
+
+    # Now starting sync in endless mode thanks to repeat = watch
+    echo "[$(date)] Executing unison with ${UNISON_PRF} profile..."
+    sshpass -p $REPLICA_SLAVE_PWD unison "${UNISON_PRF}" &
+    PID=$!
+    wait $PID
+
+    # Wait befor retry !
+    echo "[$(date)] Oops unison process end, now sleeping for 10 seconds befor retry"
+    sleep 10 &
+    PID=$!
+    wait $PID
+
+done
