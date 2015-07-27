@@ -55,8 +55,8 @@ copyonconflict = true
 prefer = newer
 
 # Want to retry if failure
-maxerrors = 10
-retry = 10
+maxerrors = 100
+retry = 100
 
 # Want to sync when a file change (normally with python-pyinotify)
 repeat = watch
