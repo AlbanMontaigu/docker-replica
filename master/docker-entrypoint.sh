@@ -53,7 +53,7 @@ confirmmerge = false
 confirmbigdel = false
 
 # Want to manage conflic in a safe way
-copyonconflict = true
+copyonconflict = false
 prefer = newer
 
 # Want to retry if failure
