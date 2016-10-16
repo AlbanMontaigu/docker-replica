@@ -10,7 +10,7 @@ ENV DEBIAN_FRONTEND="noninteractive" \
     UNISON_DIR="/root/.unison" \
     UNISON_PRF="replica-master" \
     UNISONLOCALHOSTNAME="replica-master" \
-    UNISON_VERSION="2.48.3"
+    UNISON_VERSION="2.48.4"
 
 # System base installation
 RUN apt-get update \
@@ -21,7 +21,7 @@ RUN apt-get update \
 
 # Building unison since wheezy has no recent version...
 RUN cd /tmp \
-    && curl -o unison.tgz -SL http://www.cis.upenn.edu/~bcpierce/unison/download/releases/stable/unison-$UNISON_VERSION.tar.gz \
+    && curl -o unison.tgz -SL http://www.seas.upenn.edu/~bcpierce/unison/download/releases/unison-$UNISON_VERSION/unison-$UNISON_VERSION.tar.gz \
     && mkdir -p --mode=777 unison \
     && tar -zxf unison.tgz --strip-components=1 -C unison \
     && cd unison \
