@@ -15,16 +15,24 @@ Basically you need to start 2 containers based on:
 To run your replica-master container:
 
 ```bash
-docker run -d --rm -p 2222:22 amontaigu/replica-slave
+docker run -d --rm -p 2222:22 -v /var/replica:/var/replica amontaigu/replica-slave
 ```
 
 To run your replica-master container:
 
 ```bash
-docker run -d --rm -e REPLICA_SLAVE_HOST="xx.xx.xx.xx" -e REPLICA_SLAVE_PORT="2222" amontaigu/replica-master
+docker run -d --rm -v /var/replica:/var/replica -e REPLICA_SLAVE_HOST="xx.xx.xx.xx" -e REPLICA_SLAVE_PORT="2222" amontaigu/replica-master
 ```
 
 `xx.xx.xx.xx`to be replaced by your remote host ip.
+
+## Data storage
+
+By default each container will store it's data to the `REPLICA_DATA_DIR` environment variable. 
+
+Default value is `/var/replica` but you can change it in your `docker run` commands with the `-e REPLICA_DATA_DIR="/your/path"` flag.
+
+Don't forget to use docker volumes flags in your `docker run` commands to mount any local path to the replica containers. Otherwise data will stay only in `replica-slave` and `replica-master` containers.
 
 ## License
 
