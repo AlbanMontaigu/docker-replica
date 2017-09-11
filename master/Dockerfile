@@ -16,12 +16,13 @@ ENV REPLICA_DATA_DIR="/var/replica" \
     UNISON_DIR="/root/.unison" \
     UNISON_PRF="replica-master" \
     UNISONLOCALHOSTNAME="replica-master" \
-    UNISON_VERSION="2.48.4-r3"
+    UNISON_VERSION="2.48.4" \
+    UNISON_VERSION_ALPINE_SUFFIX="-r3"
 
 # System & unison install / configuration
 RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
     && apk --no-cache add openssh sshpass py-inotify@testing ocaml curl \
-    && apk --no-cache add unison=$UNISON_VERSION \
+    && apk --no-cache add unison="${UNISON_VERSION}${UNISON_VERSION_ALPINE_SUFFIX}" \
     && rm -rf /var/cache/apk/* \
     && echo 'root:qsdqsdseFFfj@33' | chpasswd \
     && mkdir -p -m 777 $REPLICA_DATA_DIR \
