@@ -82,11 +82,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            cd /app/master
-            export UNISON_VERSION="$(sed -nre 's/^.*UNISON_VERSION="([^"]+)".*$/\1/p;' Dockerfile | head -1)"
-            bats tests
-            cd /app/slave
-            export UNISON_VERSION="$(sed -nre 's/^.*UNISON_VERSION="([^"]+)".*$/\1/p;' Dockerfile | head -1)"
+            export UNISON_VERSION_MASTER="$(sed -nre 's/^.*UNISON_VERSION="([^"]+)".*$/\1/p;' /app/master/Dockerfile | head -1)"
+            export UNISON_VERSION_SLAVE="$(sed -nre 's/^.*UNISON_VERSION="([^"]+)".*$/\1/p;' /app/slave/Dockerfile | head -1)"
             bats tests
 
 # --------------------------------------------
