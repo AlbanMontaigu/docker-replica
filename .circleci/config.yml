@@ -72,8 +72,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-            export UNISON_VERSION="$(sed -nre 's/^.*UNISON_VERSION="([^"]+)".*$/\1/p;' Dockerfile | head -1)"
             cd master
+            export UNISON_VERSION="$(sed -nre 's/^.*UNISON_VERSION="([^"]+)".*$/\1/p;' Dockerfile | head -1)"
             bats tests
 
 # --------------------------------------------
