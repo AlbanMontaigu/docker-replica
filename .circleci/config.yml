@@ -13,7 +13,8 @@ jobs:
     docker:
       - image: docker:17.06.2-ce-git
         environment:
-          DOCKER_APP_IMAGE_NAME: amontaigu/replica-master
+          DOCKER_APP_IMAGE_NAME_MASTER: amontaigu/replica-master
+          DOCKER_APP_IMAGE_NAME_SLAVE: amontaigu/replica-slave
     steps:
       - checkout
       - setup_remote_docker
@@ -21,26 +22,32 @@ jobs:
           keys:
             - cache-v1-{{ .Environment.CIRCLE_PROJECT_REPONAME }}
           paths:
-            - /caches/docker_app_image.tar
+            - /caches/docker_app_image_master.tar
+            - /caches/docker_app_image_slave.tar
       - run:
           name: Load docker image layer cache
           command: |
             set +o pipefail
-            docker load -i /caches/docker_app_image.tar | true
+            docker load -i /caches/docker_app_image_master.tar | true
+            docker load -i /caches/docker_app_image_slave.tar | true
       - run:
           name: Build docker image
           command: |
-            cd master
-            docker build --cache-from=$DOCKER_APP_IMAGE_NAME --tag $DOCKER_APP_IMAGE_NAME .
+            cd /app/master
+            docker build --cache-from=$DOCKER_APP_IMAGE_NAME_MASTER --tag $DOCKER_APP_IMAGE_NAME_MASTER .
+            cd /app/slave
+            docker build --cache-from=$DOCKER_APP_IMAGE_NAME_SLAVE --tag $DOCKER_APP_IMAGE_NAME_SLAVE .
       - run:
           name: Save docker image layer cache
           command: |
             mkdir -p /caches
-            docker save -o /caches/docker_app_image.tar $DOCKER_APP_IMAGE_NAME
+            docker save -o /caches/docker_app_image_master.tar $DOCKER_APP_IMAGE_NAME_MASTER
+            docker save -o /caches/docker_app_image_slave.tar $DOCKER_APP_IMAGE_NAME_SLAVE
       - save_cache:
           key: cache-v1-{{ .Environment.CIRCLE_PROJECT_REPONAME }}-{{ epoch }}
           paths:
-            - /caches/docker_app_image.tar
+            - /caches/docker_app_image_master.tar
+            - /caches/docker_app_image_slave.tar
 
 # --------------------------------------------
 # JOB: test docker application image
@@ -50,7 +57,8 @@ jobs:
     docker:
       - image: docker:17.06.2-ce-git
         environment:
-          DOCKER_APP_IMAGE_NAME: amontaigu/replica-master
+          DOCKER_APP_IMAGE_NAME_MASTER: amontaigu/replica-master
+          DOCKER_APP_IMAGE_NAME_SLAVE: amontaigu/replica-slave
     steps:
       - checkout
       - setup_remote_docker
@@ -58,12 +66,14 @@ jobs:
           keys:
             - cache-v1-{{ .Environment.CIRCLE_PROJECT_REPONAME }}
           paths:
-            - /caches/docker_app_image.tar
+            - /caches/docker_app_image_master.tar
+            - /caches/docker_app_image_slave.tar
       - run:
           name: Load docker image layer cache
           command: |
             set +o pipefail
-            docker load -i /caches/docker_app_image.tar | true
+            docker load -i /caches/docker_app_image_master.tar | true
+            docker load -i /caches/docker_app_image_slave.tar | true
       - run:
           name: Install dependencies
           command: |
@@ -72,7 +82,10 @@ jobs:
       - run:
           name: Run tests
           command: |
-            cd master
+            cd /app/master
+            export UNISON_VERSION="$(sed -nre 's/^.*UNISON_VERSION="([^"]+)".*$/\1/p;' Dockerfile | head -1)"
+            bats tests
+            cd /app/slave
             export UNISON_VERSION="$(sed -nre 's/^.*UNISON_VERSION="([^"]+)".*$/\1/p;' Dockerfile | head -1)"
             bats tests
 
@@ -84,7 +97,8 @@ jobs:
     docker:
       - image: docker:17.06.2-ce-git
         environment:
-          DOCKER_APP_IMAGE_NAME: amontaigu/replica-master
+          DOCKER_APP_IMAGE_NAME_MASTER: amontaigu/replica-master
+          DOCKER_APP_IMAGE_NAME_SLAVE: amontaigu/replica-master
     steps:
       - checkout
       - setup_remote_docker
@@ -92,19 +106,23 @@ jobs:
           keys:
             - cache-v1-{{ .Environment.CIRCLE_PROJECT_REPONAME }}
           paths:
-            - /caches/docker_app_image.tar
+            - /caches/docker_app_image_master.tar
+            - /caches/docker_app_image_slave.tar
       - run:
           name: Load docker image layer cache
           command: |
             set +o pipefail
-            docker load -i /caches/docker_app_image.tar | true
+            docker load -i /caches/docker_app_image_master.tar | true
+            docker load -i /caches/docker_app_image_slave.tar | true
       - deploy:
           name: Push image to docker hub
           command: |
             if [ -n "${CIRCLE_TAG}" ]; then
               docker login -u $DOCKER_USER -p $DOCKER_PASS
-              docker tag $DOCKER_APP_IMAGE_NAME $DOCKER_APP_IMAGE_NAME:$CIRCLE_TAG
-              docker push $DOCKER_APP_IMAGE_NAME:$CIRCLE_TAG
+              docker tag $DOCKER_APP_IMAGE_NAME_MASTER $DOCKER_APP_IMAGE_NAME_MASTER:$CIRCLE_TAG
+              docker push $DOCKER_APP_IMAGE_NAME_MASTER:$CIRCLE_TAG
+              docker tag $DOCKER_APP_IMAGE_NAME_SLAVE $DOCKER_APP_IMAGE_NAME_SLAVE:$CIRCLE_TAG
+              docker push $DOCKER_APP_IMAGE_NAME_SLAVE:$CIRCLE_TAG
             fi
 
 
