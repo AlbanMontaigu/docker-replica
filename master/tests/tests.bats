@@ -11,6 +11,6 @@
 
 # Test unison version on replica master
 @test "Unison version is ${UNISON_VERSION} on replica master" {
-	result="$(docker run --entrypoint=/bin/sh --rm ${DOCKER_APP_IMAGE_NAME} unison -version)"
+	result="$(docker run --entrypoint=/bin/sh --rm ${DOCKER_APP_IMAGE_NAME} -c 'unison -version')"
 	[[ "$result" == *"unison version ${UNISON_VERSION}"* ]]
 }
