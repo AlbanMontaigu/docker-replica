@@ -12,12 +12,13 @@ FROM alpine:3.6
 ENV REPLICA_DATA_DIR="/var/replica" \
     UNISON_DIR="/root/.unison" \
     UNISONLOCALHOSTNAME="replica-slave" \
-    UNISON_VERSION="2.48.4-r3"
+    UNISON_VERSION="2.48.4" \
+    UNISON_VERSION_ALPINE_SUFFIX="-r3"
 
 # System & unison install / configuration
 RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
     && apk --no-cache add openssh-server openssh sshpass py-inotify@testing ocaml curl \
-    && apk --no-cache add unison=$UNISON_VERSION \
+    && apk --no-cache add unison="${UNISON_VERSION}${UNISON_VERSION_ALPINE_SUFFIX}" \
     && rm -rf /var/cache/apk/* \
     && mkdir /var/run/sshd \
     && sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config \
