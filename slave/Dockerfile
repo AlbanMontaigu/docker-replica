@@ -16,8 +16,8 @@ ENV REPLICA_DATA_DIR="/var/replica" \
 
 # System & unison install / configuration
 RUN apk --no-cache add openssh-server openssh sshpass py-inotify ocaml  curl \
-    && apk --no-cache add unison=$UNISON_VERSION
-    && rm -rf /var/cache/apk/*
+    && apk --no-cache add unison=$UNISON_VERSION \
+    && rm -rf /var/cache/apk/* \
     && mkdir /var/run/sshd \
     && sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config \

@@ -20,8 +20,8 @@ ENV REPLICA_DATA_DIR="/var/replica" \
 
 # System & unison install / configuration
 RUN apk --no-cache add openssh sshpass py-inotify ocaml  curl \
-    && apk --no-cache add unison=$UNISON_VERSION
-    && rm -rf /var/cache/apk/*
+    && apk --no-cache add unison=$UNISON_VERSION \
+    && rm -rf /var/cache/apk/* \
     && echo 'root:qsdqsdseFFfj@33' | chpasswd \
     && mkdir -p --mode=777 $REPLICA_DATA_DIR \
     && mkdir -p --mode=777 $UNISON_DIR \
