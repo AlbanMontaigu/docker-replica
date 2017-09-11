@@ -24,8 +24,8 @@ RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/re
     && apk --no-cache add unison=$UNISON_VERSION \
     && rm -rf /var/cache/apk/* \
     && echo 'root:qsdqsdseFFfj@33' | chpasswd \
-    && mkdir -p --mode=777 $REPLICA_DATA_DIR \
-    && mkdir -p --mode=777 $UNISON_DIR \
+    && mkdir -p -m 777 $REPLICA_DATA_DIR \
+    && mkdir -p -m 777 $UNISON_DIR \
     && mkdir -p ~/.ssh \
     && echo "Host *\n    StrictHostKeyChecking no" > ~/.ssh/config
 
