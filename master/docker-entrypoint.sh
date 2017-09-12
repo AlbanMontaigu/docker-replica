@@ -6,6 +6,10 @@ trap 'kill -TERM $PID; wait $PID; exit 0' TERM INT
 # Configuration is in docker file
 UNISON_PRF_FILE="${UNISON_DIR}/${UNISON_PRF}.prf"
 
+# Generate host keys if not present
+# @see https://github.com/sickp/docker-alpine-sshd/blob/master/versions/7.5/rootfs/entrypoint.sh
+ssh-keygen -A
+
 #
 # Generate unison configuration if necessary
 #
