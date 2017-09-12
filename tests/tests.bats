@@ -26,7 +26,9 @@
     docker network create replica-network
     docker run -d --rm --network=replica-network --name replica-slave ${DOCKER_APP_IMAGE_NAME_SLAVE}
     docker run -d --rm --network=replica-network -e REPLICA_SLAVE_HOST="replica-slave" -e REPLICA_SLAVE_PORT="22" --name replica-master ${DOCKER_APP_IMAGE_NAME_MASTER}
+    sleep 2
     docker exec replica-slave /bin/sh -c 'echo TEST_TEXT > TEST_FILE'
+    sleep 2
     result="$(docker exec replica-master /bin/sh -c 'cat TEST_FILE')"
     docker stop replica-master
     docker stop replica-slave
