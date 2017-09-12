@@ -28,7 +28,8 @@ RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/re
     && mkdir -p -m 777 $REPLICA_DATA_DIR \
     && mkdir -p -m 777 $UNISON_DIR \
     && mkdir -p ~/.ssh \
-    && echo "Host *\n    StrictHostKeyChecking no" > ~/.ssh/config
+    && echo "Host *" > ~/.ssh/config \
+    && echo "    StrictHostKeyChecking no" > ~/.ssh/config
 
 # Where unison store some internal data like status
 VOLUME $UNISON_DIR
