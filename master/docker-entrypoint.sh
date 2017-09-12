@@ -13,7 +13,7 @@ ssh-keygen -A
 #
 # Generate unison configuration if necessary
 #
-# /!\ Be carefull, if you change any config value, this file must be deleted or replaced /!\
+# /!\ Be careful, if you change any config value, this file must be deleted or replaced /!\
 #
 echo "[$(date)] Checking if ${UNISON_PRF_FILE} is created..."
 if [ -f "${UNISON_PRF_FILE}" ]; then
@@ -52,11 +52,11 @@ force = newer
 owner = true
 group = true
 
-# Do not want cofirm in batch mode
+# Do not want confirm in batch mode
 confirmmerge = false
 confirmbigdel = false
 
-# Want to manage conflic in a safe way
+# Want to manage conflict in a safe way
 copyonconflict = false
 prefer = newer
 
@@ -81,8 +81,8 @@ while true; do
     PID=$!
     wait $PID
 
-    # Wait befor retry !
-    echo "[$(date)] Oops unison process end, now sleeping for 10 seconds befor retry"
+    # Wait before retry !
+    echo "[$(date)] Oops unison process end, now sleeping for 10 seconds before retry"
     sleep 10 &
     PID=$!
     wait $PID
