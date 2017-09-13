@@ -77,7 +77,7 @@ while true; do
 
     # Now starting sync in endless mode thanks to repeat = watch
     echo "[$(date)] Executing unison with ${UNISON_PRF} profile..."
-    sshpass -p $REPLICA_SLAVE_PWD unison "${UNISON_PRF}" "@$" &
+    sshpass -p $REPLICA_SLAVE_PWD unison "${UNISON_PRF}" &
     PID=$!
     wait $PID
 

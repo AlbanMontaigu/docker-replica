@@ -8,7 +8,6 @@
 - FEATURE: replica master tests added
 - FEATURE: CircleCI 2.0 added for replica-slave
 - FEATURE: replica slave tests added
-- FEATURE: now can pass args to unison ex: `-path path1 -path path2`
 
 ## 2.48.4 (2016-10-16)
 - Update to unison 2.48.4
