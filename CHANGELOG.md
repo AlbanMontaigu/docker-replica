@@ -1,5 +1,5 @@
 
-## 3.0.0 (2017-09-11)
+## 3.0.0 (2017-09-13)
 - UPDATE: bump to version 3.0.0 and **will not follow unison version anymore** since it's not the only one component
 - UPDATE: base image changed to linux alpine 3.6
 - UPDATE: more documentation in the readme
@@ -8,6 +8,7 @@
 - FEATURE: replica master tests added
 - FEATURE: CircleCI 2.0 added for replica-slave
 - FEATURE: replica slave tests added
+- FEATURE: now can pass args to unison ex: `-path path1 -path path2`
 
 ## 2.48.4 (2016-10-16)
 - Update to unison 2.48.4
