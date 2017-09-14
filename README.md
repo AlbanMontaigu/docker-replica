@@ -28,7 +28,7 @@ docker run -d --rm -v /var/replica:/var/replica -e REPLICA_SLAVE_HOST="xx.xx.xx.
 
 ## Data storage
 
-By default each container will store it's data to the `REPLICA_DATA_DIR` environment variable. 
+Each container will store it's data internally where the `REPLICA_DATA_DIR` environment variable says. 
 
 Default value is `/var/replica` but you can change it in your `docker run` commands with the `-e REPLICA_DATA_DIR="/your/path"` flag.
 
