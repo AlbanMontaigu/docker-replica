@@ -44,6 +44,14 @@ path=subfolder2/subfolder 3
 
 If this file not exist all files / folder will be sync.
 
+**Important**
+
+By default unison is configured with `repreat = watch` option. Meaning it will rely on file system notification to detect changes fore resync.
+
+Unfortunately, filesystem notification may not work in case of volume mounting in docker. Here you can make a workaround by setting `-e UNISON_PRF_REPEAT="1"` to tell unison to sync every 1 sec instead of waiting for file system notifications.
+
+See [Unison documentation](http://www.cis.upenn.edu/~bcpierce/unison/download/releases/stable/unison-manual.html) for more information on configuration.
+
 ## License
 
 This project is licensed under the terms of the MIT license.

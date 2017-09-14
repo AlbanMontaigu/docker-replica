@@ -78,7 +78,7 @@ maxerrors = 100
 retry = 100
 
 # Want to sync when a file change (normally with python-pyinotify)
-repeat = watch
+repeat = ${UNISON_PRF_REPEAT}
 
 " >> $UNISON_PRF_FILE
 fi

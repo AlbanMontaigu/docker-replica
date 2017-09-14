@@ -9,6 +9,7 @@
 - FEATURE: CircleCI 2.0 added for replica-slave
 - FEATURE: replica slave tests added
 - FEATURE: ability to add a `SYNC_PATHS` file at the root of the `REPLICA_DATA_DIR` do sync only specified path
+- FEATURE: `UNISON_PRF_REPEAT` var added to set unison repeat value in profile path
 
 ## 2.48.4 (2016-10-16)
 - Update to unison 2.48.4

@@ -15,6 +15,7 @@ ENV REPLICA_DATA_DIR="/var/replica" \
     REPLICA_SLAVE_PWD="ezr5kKj@2" \
     UNISON_DIR="/root/.unison" \
     UNISON_PRF="replica-master" \
+    UNISON_PRF_REPEAT="watch" \
     UNISONLOCALHOSTNAME="replica-master" \
     UNISON_VERSION="2.48.4" \
     UNISON_VERSION_ALPINE_SUFFIX="-r3"
