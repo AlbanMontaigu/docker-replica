@@ -34,6 +34,16 @@ Default value is `/var/replica` but you can change it in your `docker run` comma
 
 Don't forget to use docker volumes flags in your `docker run` commands to mount any local path to the replica containers. Otherwise data will stay only in `replica-slave` and `replica-master` containers.
 
+At the root of `REPLICA_DATA_DIR` you can add a file with the name `SYNC_PATHS` to specify the specific path you want to sync insideyour dir:
+
+```
+# Sub path to sync (compliant with unison configuration format)
+path=subfolder1
+path=subfolder2/subfolder 3
+```
+
+If this file not exist all files / folder will be sync.
+
 ## License
 
 This project is licensed under the terms of the MIT license.

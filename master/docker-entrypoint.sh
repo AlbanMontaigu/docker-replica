@@ -3,8 +3,9 @@
 # Want to exit cleanly with subprocess
 trap 'kill -TERM $PID; wait $PID; exit 0' TERM INT
 
-# Configuration is in docker file
+# Configuration
 UNISON_PRF_FILE="${UNISON_DIR}/${UNISON_PRF}.prf"
+SYNC_PATHS_FILE="${REPLICA_DATA_DIR}/SYNC_PATHS"
 
 # Generate host keys if not present
 # @see https://github.com/sickp/docker-alpine-sshd/blob/master/versions/7.5/rootfs/entrypoint.sh
@@ -38,6 +39,18 @@ root = ${REPLICA_DATA_DIR}
 # Destination (and distant) folder to sync
 root = ssh://root@${REPLICA_SLAVE_HOST}/${REPLICA_DATA_DIR}
 sshargs = -p ${REPLICA_SLAVE_PORT}
+" > $UNISON_PRF_FILE
+
+# Integrate additional path if declared
+if [ -f "${SYNC_PATHS_FILE}" ]; then
+    cat "${SYNC_PATHS_FILE}" >> $UNISON_PRF_FILE
+fi
+
+# End of the prf file
+echo "
+
+# Do not sync configuration file
+ignore = Name SYNC_PATHS
 
 # Logs but not too much...
 log = true
@@ -67,7 +80,7 @@ retry = 100
 # Want to sync when a file change (normally with python-pyinotify)
 repeat = watch
 
-" > $UNISON_PRF_FILE
+" >> $UNISON_PRF_FILE
 fi
 
 #
