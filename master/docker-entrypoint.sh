@@ -23,7 +23,7 @@ if [ -f "${UNISON_PRF_FILE}" ]; then
     echo "[$(date)] ${UNISON_PRF_FILE} already created !"
 else
 
-    # Generates file
+    # PRF file creation
     echo "[$(date)] Creating ${UNISON_PRF_FILE}..."
     echo "
 # Batch mode
@@ -41,13 +41,13 @@ root = ssh://root@${REPLICA_SLAVE_HOST}/${REPLICA_DATA_DIR}
 sshargs = -p ${REPLICA_SLAVE_PORT}
 " > $UNISON_PRF_FILE
 
-# Integrate additional path if declared
-if [ -f "${SYNC_PATHS_FILE}" ]; then
-    cat "${SYNC_PATHS_FILE}" >> $UNISON_PRF_FILE
-fi
+    # Integrate additional path if declared
+    if [ -f "${SYNC_PATHS_FILE}" ]; then
+        cat "${SYNC_PATHS_FILE}" >> $UNISON_PRF_FILE
+    fi
 
-# End of the prf file
-echo "
+    # End of the prf file
+    echo "
 
 # Do not sync configuration file
 ignore = Name SYNC_PATHS
