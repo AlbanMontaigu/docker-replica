@@ -17,7 +17,7 @@ ENV REPLICA_DATA_DIR="/var/replica" \
 
 # System & unison install / configuration
 RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk --no-cache add openssh-server openssh sshpass py-inotify@testing ocaml curl \
+    && apk --no-cache add openssh-server openssh sshpass python py-inotify@testing ocaml curl \
     && apk --no-cache add unison="${UNISON_VERSION}${UNISON_VERSION_ALPINE_SUFFIX}" \
     && rm -rf /var/cache/apk/* \
     && mkdir /var/run/sshd \
