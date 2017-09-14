@@ -34,7 +34,7 @@ Default value is `/var/replica` but you can change it in your `docker run` comma
 
 Don't forget to use docker volumes flags in your `docker run` commands to mount any local path to the replica containers. Otherwise data will stay only in `replica-slave` and `replica-master` containers.
 
-At the root of `REPLICA_DATA_DIR` you can add a file with the name `SYNC_PATHS` to specify the specific path you want to sync insideyour dir:
+At the root of `REPLICA_DATA_DIR` you can add a file with the name `SYNC_PATHS` to specify the specific path you want to sync inside your dir:
 
 ```
 # Sub path to sync (compliant with unison configuration format)
@@ -46,9 +46,9 @@ If this file not exist all files / folder will be sync.
 
 **Important**
 
-By default unison is configured with `repreat = watch` option. Meaning it will rely on file system notification to detect changes fore resync.
+By default unison is configured with `repeat = watch` option. Meaning it will rely on file system notification to detect changes fore resync.
 
-Unfortunately, filesystem notification may not work in case of volume mounting in docker. Here you can make a workaround by setting `-e UNISON_PRF_REPEAT="1"` to tell unison to sync every 1 sec instead of waiting for file system notifications.
+Unfortunately, filesystem notification may not work in case of volume mounting in docker. Here you can make a workaround by setting `-e UNISON_PRF_REPEAT="1"` **on replica-slave** to tell unison to sync every 1 sec instead of waiting for file system notifications.
 
 See [Unison documentation](http://www.cis.upenn.edu/~bcpierce/unison/download/releases/stable/unison-manual.html) for more information on configuration.
 
