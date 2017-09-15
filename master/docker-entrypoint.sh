@@ -54,7 +54,7 @@ ignore = Name SYNC_PATHS
 
 # Prefer log in console
 log = false
-silent = false
+silent = ${UNISON_PRF_SILENT}
 
 # Sync date and keep recent files
 times = true

@@ -11,6 +11,7 @@
 - FEATURE: replica slave tests added
 - FEATURE: ability to add a `SYNC_PATHS` file at the root of the `REPLICA_DATA_DIR` do sync only specified path
 - FEATURE: `UNISON_PRF_REPEAT` var added to set unison repeat value in profile path
+- FEATURE: `UNISON_PRF_SILENT` var added to set (or not) unison log in stdout (default is true)
 
 ## 2.48.4 (2016-10-16)
 - Update to unison 2.48.4
