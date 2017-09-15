@@ -4,6 +4,7 @@
 - UPDATE: base image changed to linux alpine 3.6
 - UPDATE: more documentation in the readme
 - UPDATE: old Makefile removed since there is a CI
+- UPDATE: now log to stdout for replica-master
 - FEATURE: CircleCI 2.0 added for replica-master
 - FEATURE: replica master tests added
 - FEATURE: CircleCI 2.0 added for replica-slave
