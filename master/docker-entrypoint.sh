@@ -53,7 +53,8 @@ sshargs = -p ${REPLICA_SLAVE_PORT}
 ignore = Name SYNC_PATHS
 
 # Prefer log in console
-log = false
+log = ${UNISON_PRF_LOG}
+logfile = ${UNISON_DIR}/unison.log
 silent = ${UNISON_PRF_SILENT}
 
 # Sync date and keep recent files

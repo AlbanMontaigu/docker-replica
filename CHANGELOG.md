@@ -1,5 +1,5 @@
 
-## 3.0.0 (2017-09-14)
+## 3.0.0 (2017-09-15)
 - UPDATE: bump to version 3.0.0 and **will not follow unison version anymore** since it's not the only one component
 - UPDATE: base image changed to linux alpine 3.6
 - UPDATE: more documentation in the readme
@@ -12,6 +12,7 @@
 - FEATURE: ability to add a `SYNC_PATHS` file at the root of the `REPLICA_DATA_DIR` do sync only specified path
 - FEATURE: `UNISON_PRF_REPEAT` var added to set unison repeat value in profile path
 - FEATURE: `UNISON_PRF_SILENT` var added to set (or not) unison log in stdout (default is true)
+- FEATURE: `UNISON_PRF_LOG` var added to set (or not) unison log in stdout (default is false)
 
 ## 2.48.4 (2016-10-16)
 - Update to unison 2.48.4
