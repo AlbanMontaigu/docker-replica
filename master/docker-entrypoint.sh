@@ -52,10 +52,9 @@ sshargs = -p ${REPLICA_SLAVE_PORT}
 # Do not sync configuration file
 ignore = Name SYNC_PATHS
 
-# Logs but not too much...
-log = true
-logfile = ${UNISON_DIR}/unison.log
-silent = true
+# Prefer log in console
+log = false
+silent = false
 
 # Sync date and keep recent files
 times = true
@@ -78,6 +77,9 @@ maxerrors = 100
 retry = 100
 
 # Want to sync when a file change (normally with python-pyinotify)
+#      repeat = watch
+# Want to sync every X sec (when file system notif is not working for instance)
+#      repeat = X
 repeat = ${UNISON_PRF_REPEAT}
 
 " >> $UNISON_PRF_FILE
